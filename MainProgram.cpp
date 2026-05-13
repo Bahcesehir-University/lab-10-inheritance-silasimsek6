@@ -1,178 +1,106 @@
-// ================================================================
-// Lab: Inheritance in C++
-// Course: Object-Oriented Programming for Engineers
-// File: MainProgram.cpp
-// ================================================================
-// INSTRUCTIONS:
-//   Complete every TODO. Do NOT change function signatures.
-//   All code stays in this single file. No .h files allowed.
-// ================================================================
-
+// Online C++ compiler to run C++ program online
+// ============================================================
+// Lab: More Details about Classes
+// Course: Object-Oriented Programming (C++)
+// Level: 2nd Year Engineering
+// Duration: 60 minutes
+// ============================================================
+ 
 #include <iostream>
 #include <string>
-
-// ================================================================
+#include <cmath>
+ 
+// ============================================================
 // CLASS DEFINITIONS
-// ================================================================
-
-// ----------------------------------------------------------------
-// Base Class: Vehicle
-// ----------------------------------------------------------------
-// Represents a generic vehicle.
-// Data members (protected):
-//   - make       (std::string)  : e.g. "Toyota"
-//   - year       (int)          : e.g. 2020
-//   - fuelLevel  (double)       : 0.0 - 100.0 (percentage)
-//
-// Methods:
-//   - Constructor(make, year, fuelLevel)
-//   - getMake()       -> std::string  (const)
-//   - getYear()       -> int          (const)
-//   - getFuelLevel()  -> double       (const)
-//   - refuel(amount)  -> void         : adds amount to fuelLevel,
-//                                       clamps max to 100.0
-//   - describe()      -> std::string  : pure virtual
-//   - virtual destructor
-// ----------------------------------------------------------------
-
-class Vehicle {
-protected:
-    // TODO: declare protected data members
-    //       std::string make
-    //       int year
-    //       double fuelLevel
-
-public:
-    // TODO: declare constructor
-    //       Vehicle(std::string make, int year, double fuelLevel)
-
-    // TODO: declare getters (const)
-    //       getMake(), getYear(), getFuelLevel()
-
-    // TODO: declare refuel(double amount)
-    //       Adds amount to fuelLevel. Max is 100.0. Ignore negative amounts.
-
-    // TODO: declare pure virtual describe() returning std::string
-
-    // TODO: declare virtual destructor
-};
-
-// ----------------------------------------------------------------
-// Derived Class: Car
-// ----------------------------------------------------------------
-// Inherits from Vehicle.
-// Additional data (private):
-//   - numDoors (int)
-//
-// Methods:
-//   - Constructor(make, year, fuelLevel, numDoors)
-//     -> must call Vehicle constructor
-//   - getNumDoors() -> int (const)
-//   - describe()    -> std::string (override)
-//     Format: "Car: <make> (<year>), <numDoors> doors, fuel: <fuelLevel>%"
-//     Example: "Car: Toyota (2020), 4 doors, fuel: 75.5%"
-// ----------------------------------------------------------------
-
-class Car : public Vehicle {
+// ============================================================
+ 
+class Point {
 private:
-    // TODO: int numDoors
-
+    double x;
+    double y;
 public:
-    // TODO: Constructor(make, year, fuelLevel, numDoors)
-
-    // TODO: getNumDoors()
-
-    // TODO: describe() override
+    // TODO 1: Constructor with member initializer list (double x, double y)
+    Point(double x, double y) : x(x), y(y) {}  // stub — fix initializer
+ 
+    // TODO 2: const getter for x
+    double getX() const{ return x; }   // stub — add const
+ 
+    // TODO 3: const getter for y
+    double getY() const { return y; }   // stub — add const
+ 
+    // TODO 4: const display()
+    void display() const { 
+        std::cout << "(" << x << "," << y << ")";
+        }
+    // TODO 5: declare Rectangle as friend class
+    friend class Rectangle;
 };
-
-// ----------------------------------------------------------------
-// Derived Class: Truck
-// ----------------------------------------------------------------
-// Inherits from Vehicle.
-// Additional data (private):
-//   - payloadTons (double)   : cargo capacity in tons
-//
-// Methods:
-//   - Constructor(make, year, fuelLevel, payloadTons)
-//     -> must call Vehicle constructor
-//   - getPayloadTons() -> double (const)
-//   - describe()       -> std::string (override)
-//     Format: "Truck: <make> (<year>), payload: <payloadTons>t, fuel: <fuelLevel>%"
-//     Example: "Truck: Ford (2018), payload: 5.5t, fuel: 60%"
-// ----------------------------------------------------------------
-
-class Truck : public Vehicle {
+ 
+ 
+class Rectangle {
 private:
-    // TODO: double payloadTons
-
+    Point topLeft;
+    Point bottomRight;
 public:
-    // TODO: Constructor(make, year, fuelLevel, payloadTons)
-
-    // TODO: getPayloadTons()
-
-    // TODO: describe() override
+    // TODO 6: constructor with member initializer list
+    Rectangle(double x1, double y1, double x2, double y2)
+        : topLeft(x1,y1), bottomRight(x2,y2) {}  // stub — fix initializer
+ 
+    // TODO 7: const getWidth()
+    double getWidth() const { return std::abs(bottomRight.x-topLeft.x); }  // stub
+ 
+    // TODO 8: const getHeight()
+    double getHeight() const { return std::abs(bottomRight.y-topLeft.y); }  // stub
+ 
+    // TODO 9: const getArea()
+    double getArea() const { return std::abs(getHeight()*getWidth()); }  // stub
+ 
+    // TODO 10: const display()
+    void display() const {
+        std::cout<< "topLeft" ;
+        topLeft.display();
+        std::cout<< "bottomRight";
+        bottomRight.display();
+        std::cout << "area",
+        getArea();
+    }
+ 
+    // TODO 11: declare isSameSize as friend function
+    friend bool isSameSize(Rectangle&);
 };
-
-// ================================================================
-// FUNCTION IMPLEMENTATIONS
-// ================================================================
-
-// ----------------------------------------------------------------
-// Vehicle member function implementations
-// ----------------------------------------------------------------
-
-// TODO: Implement Vehicle constructor
-
-// TODO: Implement getMake(), getYear(), getFuelLevel()
-
-// TODO: Implement refuel(double amount)
-//       Rules:
-//         - Ignore if amount <= 0
-//         - fuelLevel += amount
-//         - If fuelLevel > 100.0, clamp to 100.0
-
-// ----------------------------------------------------------------
-// Car member function implementations
-// ----------------------------------------------------------------
-
-// TODO: Implement Car constructor (chain to Vehicle)
-
-// TODO: Implement getNumDoors()
-
-// TODO: Implement describe()
-//       Hint: use std::ostringstream for formatted decimal output
-
-// ----------------------------------------------------------------
-// Truck member function implementations
-// ----------------------------------------------------------------
-
-// TODO: Implement Truck constructor (chain to Vehicle)
-
-// TODO: Implement getPayloadTons()
-
-// TODO: Implement describe()
-
-// ================================================================
+ 
+ 
+// TODO 12: implement isSameSize
+bool isSameSize(const Rectangle& r1, const Rectangle& r2) {
+    return  r1.getArea()== r2.getArea();  // stub
+}
+ 
+ 
+class ConstDemo {
+private:
+    int value;
+public:
+    // TODO 13: constructor with member initializer list
+    ConstDemo(int v) : value(v) {}  // stub — fix initializer
+ 
+    // TODO 14: const getValue()
+    int getValue() const { return value; }  // stub — add const
+ 
+    // TODO 15: NON-const doubleValue() — multiplies value by 2
+    void doubleValue() {
+        value*=2;
+    }  // stub
+ 
+    // TODO 16: const constGetDouble() — returns value * 2 without modifying
+    int constGetDouble() const { return value * 2; }  // stub — add const + fix body
+};
+ 
+ 
+// ============================================================
 // MAIN
-// ================================================================
-
+// ============================================================
 int main() {
-    // --- Basic usage demo ---
-    Car   c("Toyota", 2020, 75.5, 4);
-    Truck t("Ford",   2018, 60.0, 5.5);
-
-    std::cout << c.describe() << "\n";
-    std::cout << t.describe() << "\n";
-
-    // Polymorphism via base pointer
-    Vehicle* v1 = &c;
-    Vehicle* v2 = &t;
-    std::cout << v1->describe() << "\n";
-    std::cout << v2->describe() << "\n";
-
-    // Refuel demo
-    c.refuel(20.0);
-    std::cout << "After refuel: " << c.getFuelLevel() << "%\n";
-
+    // TODO 17-21: demo code
+    std::cout << "Complete the TODOs above!" << std::endl;
     return 0;
 }
